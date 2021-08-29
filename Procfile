@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath app app.wsgi --log-file -
+web: gunicorn resume\portfolio\wsgi.py --log-file -
