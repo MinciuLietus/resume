@@ -10,7 +10,7 @@ from django.db.models.fields.related import ManyToManyField
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200, blank=True, null=True)
     surname = models.CharField(max_length=200, blank=True, null=True)
     email = models.EmailField(max_length=500, blank=True, null=True)
@@ -36,7 +36,7 @@ class Profile(models.Model):
 
 
 class Skill(models.Model):
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, null=True, blank=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -47,7 +47,7 @@ class Skill(models.Model):
 
 
 class Education(models.Model):
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, null=True, blank=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     about = models.TextField(blank=True, null=True)
@@ -60,7 +60,7 @@ class Education(models.Model):
 
 
 class Experience(models.Model):
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, null=True, blank=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100, blank=True, null=True)
     company = models.TextField(blank=True, null=True)
     about = models.TextField(blank=True, null=True)
@@ -73,9 +73,10 @@ class Experience(models.Model):
 
 
 class WorkStyle(models.Model):
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, null=True, blank=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100, blank=True, null=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    about = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return str(self.name)
