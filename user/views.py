@@ -1,23 +1,39 @@
 # Create your views here.
 
-from user.models import Education, Experience, Profile, Skill, WorkStyle
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.utils import translation
+from django.utils.translation import activate
+
+from user.models import Profile
 
 
-def aboutMe(request):
-    profile = Profile.objects.get(id='49dc6222-c683-4419-a2c3-d3cc7fd78a9c')
+class PortfolioAbout:
+    @classmethod
+    def set_language(cls, request):
+        language = translation.get_language_from_request(request)
+        return redirect(language)
 
-    skills = Skill.objects.filter(profile__name='Virginija')
-    education = Education.objects.filter(profile__name='Virginija')
-    experiences = Experience.objects.filter(profile__name='Virginija')
-    style = WorkStyle.objects.filter(profile__name='Virginija')
+    @classmethod
+    def main(cls, request):
+        profile = Profile.objects.get(name="Aurimas")
 
-    context = {
-        'profile': profile,
-        'skill': skills,
-        'education': education,
-        'experience': experiences,
-        'style': style,
-    }
+        context = {
+            "profile": profile,
+            "languages": profile.languages.all(),
+            "education": profile.education.all(),
+            "experience": profile.experience.all(),
+            "style": profile.workstyle.all(),
+            "skills": profile.skills,
+        }
 
-    return render(request, 'index.html', context)
+        return render(request, "index.html", context)
+
+    @classmethod
+    def main_en(cls, request):
+        activate('en')
+        return cls.main(request)
+
+    @classmethod
+    def main_lt(cls, request):
+        activate('lt')
+        return cls.main(request)

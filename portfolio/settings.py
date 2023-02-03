@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.utils.translation import gettext as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,8 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'p$@nb+ky)w1mqi)35mk@+kxg5q@8%lh6^r58pw36ge^kw1t48t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
+DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', 'mlietusresume.herokuapp.com/', ".herokuapp.com"]
 
 
@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user'
+    'user',
+    'modeltranslation',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'portfolio.middleware.LanguageMiddleware',
 ]
 
 ROOT_URLCONF = 'portfolio.urls'
@@ -117,6 +120,12 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+gettext = lambda s: s
+LANGUAGES = (
+    ('en', gettext('English')),
+    ('lt', gettext('Lithuanian')),
+)
 
 
 # Static files (CSS, JavaScript, Images)
