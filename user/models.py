@@ -80,6 +80,7 @@ class Profile(models.Model):
     bio = models.TextField(blank=True, null=True)
     bio_tab = models.TextField(blank=True, null=True)
     profile_image = models.ImageField(null=True, blank=True, upload_to='profiles/', default='profiles/user-default.png')
+    cv_file = models.FileField(null=True, blank=True, upload_to='profiles/')
     mobile_number = models.CharField(max_length=200, blank=True, null=True)
     social_github = models.CharField(max_length=200, blank=True, null=True)
     social_twitter = models.CharField(max_length=200, blank=True, null=True)

@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from typing import Any, Callable
+
 from django.utils.translation import gettext as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'p$@nb+ky)w1mqi)35mk@+kxg5q@8%lh6^r58pw36ge^kw1t48t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['127.0.0.1', 'mlietusresume.herokuapp.com/', ".herokuapp.com"]
 
 
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'modeltranslation',
+    'fontawesomefree',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +124,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-gettext = lambda s: s
+LOCALE_PATHS = (os.path.join(BASE_DIR), 'user/locale',)
+
+gettext: Callable[[Any], Any] = lambda s: s
+
 LANGUAGES = (
     ('en', gettext('English')),
     ('lt', gettext('Lithuanian')),
@@ -131,9 +137,9 @@ LANGUAGES = (
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
-MEDIA_URL = '/images/'
+MEDIA_URL = '/media/'
 
 
 STATIC_URL = '/static/'

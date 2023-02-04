@@ -1,6 +1,5 @@
 {% load static %}
 {% load i18n %}
-{% get_static_prefix as STATIC_PREFIX %}
 <!DOCTYPE html>
 {% block content %}
     <html lang="en">
@@ -11,14 +10,17 @@
         <meta name="author" content=""/>
         <title>{% trans "Resume" %}</title>
         <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}"/>
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet"
               type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css"/>
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
+        <link href="{% static 'lang-icons/css/flag-icon.css' %}" rel="stylesheet"/>
+        <!--Fontawesome CSS (includes Bootstrap)-->
+        <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-XGXBZBKVTZ"></script>
         <script>
@@ -53,11 +55,12 @@
         <a class="navbar-brand js-scroll-trigger" href="#page-top">
             <span class="d-block d-lg-none">{{ profile.name }}</span>
             <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2"
-                                                 src="{{ profile.profile_image.url }}" alt="..."/></span>
+                                                 src="{% static profile.profile_image.url %} " alt="..."/></span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
                 class="navbar-toggler-icon"></span></button>
+
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link js-scroll-trigger"
@@ -72,9 +75,21 @@
                 </li>
             </ul>
         </div>
+
+        <a href="{% static profile.cv_file.url %}" target="_blank">
+            <button type="button" class="btn btn-dark btn-lg" style="background: transparent; border: 0; padding-bottom: 10px"><i
+                    class="fa-solid fa-download"></i> {% trans "Download CV" %}</button>
+        </a>
+
+
     </nav>
     <!-- Page Content-->
     <div class="container-fluid p-0">
+
+        <div style="float:right; padding-right: 15px; padding-top: 10px;">
+            <a class="flag-icon flag-icon-gbr" href="{{ base_url }}/en"></a> |
+            <a class="flag-icon flag-icon-ltu" href="{{ base_url }}/lt"></a>
+        </div>
         <!-- About-->
         <section class="resume-section" id="aboutme">
             <div class="resume-section-content">
@@ -93,7 +108,7 @@
                 </ul>
                 <p class="lead mb-5">{{ profile.intro_tab }}</p>
                 <p>{% trans "Social websites" %}</p>
-{#                # TODO here implement more social websites#}
+                {#                # TODO here implement more social websites#}
                 <div class="social-icons">
                     <a class="social-icon" href="{{ profile.social_website }}"><i class="fab fa-facebook-f"></i></a>
                 </div>
@@ -129,7 +144,7 @@
                         <div class="flex-grow-1">
                             <h3 class="mb-0">{{ educations.name }}</h3>
                             <div class="subheading mb-3">{{ educations.description }}</div>
-                            <div>{{  educations.about }}</div>
+                            <div>{{ educations.about }}</div>
                         </div>
                         <div class="flex-shrink-0"><span
                                 class="text-primary">{% trans "from" %} {{ educations.created_from }} {% trans "to" %} {{ educations.created_to }}</span>

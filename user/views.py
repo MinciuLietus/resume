@@ -1,4 +1,5 @@
 # Create your views here.
+from urllib.parse import urlsplit
 
 from django.shortcuts import redirect, render
 from django.utils import translation
@@ -16,6 +17,7 @@ class PortfolioAbout:
     @classmethod
     def main(cls, request):
         profile = Profile.objects.get(name="Aurimas")
+        base_url = cls.get_base_url(request.build_absolute_uri())
 
         context = {
             "profile": profile,
@@ -24,6 +26,7 @@ class PortfolioAbout:
             "experience": profile.experience.all(),
             "style": profile.workstyle.all(),
             "skills": profile.skills,
+            "base_url": base_url,
         }
 
         return render(request, "index.html", context)
@@ -37,3 +40,9 @@ class PortfolioAbout:
     def main_lt(cls, request):
         activate('lt')
         return cls.main(request)
+
+    @staticmethod
+    def get_base_url(url):
+        result = urlsplit(url)
+        base_url = result.scheme + "://" + result.netloc
+        return base_url

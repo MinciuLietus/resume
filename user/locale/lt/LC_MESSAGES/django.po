@@ -22,11 +22,11 @@ msgstr ""
 
 #: portfolio/settings.py:126
 msgid "English"
-msgstr ""
+msgstr "Anglų"
 
 #: portfolio/settings.py:127
 msgid "Lithuanian"
-msgstr ""
+msgstr "Lietuvių"
 
 #: templates/index.html:11
 msgid "Resume"
@@ -91,6 +91,9 @@ msgstr ""
 #: templates/index.html:198
 msgid "Languages"
 msgstr "Kalbos"
+
+msgid "Download CV"
+msgstr "Parsisiųsti CV"
 
 #: venv/lib/python3.9/site-packages/django/contrib/messages/apps.py:7
 msgid "Messages"
