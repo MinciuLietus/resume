@@ -1,4 +1,4 @@
-from django.db.models import CharField, TextField
+from django.db.models import TextField
 from modeltranslation.translator import TranslationOptions, translator
 
 from user.models import Education, Experience, Profile, Skill, WorkStyle

@@ -9,12 +9,16 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import ast
+import os
 from pathlib import Path
 import os
 from typing import Any, Callable
 
 from django.utils.translation import gettext as _
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,13 +28,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'p$@nb+ky)w1mqi)35mk@+kxg5q@8%lh6^r58pw36ge^kw1t48t'
+
+SECRET_KEY = os.getenv('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-ALLOWED_HOSTS = ['127.0.0.1', 'mlietusresume.herokuapp.com/', ".herokuapp.com"]
-
-
+DEBUG = int(os.environ.get('DEBUG', default=0))
+ALLOWED_HOSTS = ast.literal_eval(os.getenv('ALLOWED_HOSTS', '[]'))
 # Application definition
 
 INSTALLED_APPS = [
@@ -124,7 +127,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOCALE_PATHS = (os.path.join(BASE_DIR), 'user/locale',)
+LOCALE_PATHS = (os.path.join(BASE_DIR), 'locale',)
 
 gettext: Callable[[Any], Any] = lambda s: s
 
