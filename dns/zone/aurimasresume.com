@@ -7,5 +7,7 @@ $TTL 86400
                     3600)    ; Negative Cache TTL
 
 @       IN      NS      aurimasresume.com.
-@       IN      A       3.253.10.12
-www     IN      A       3.253.10.12
+@       IN      A       ns-203.awsdns-25.com
+www     IN      A       ns-833.awsdns-40.net
+www     IN      A       ns-1512.awsdns-61.org
+www     IN      A       ns-1995.awsdns-57.co.uk
