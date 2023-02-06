@@ -7,5 +7,5 @@ $TTL 86400
                     3600)    ; Negative Cache TTL
 
 @       IN      NS      aurimasresume.com.
-@       IN      A       34.240.68.33
-www     IN      A       34.240.68.33
+@       IN      A       54.154.10.133
+www     IN      A       54.154.10.133
