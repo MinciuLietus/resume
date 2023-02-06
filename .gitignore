@@ -1,3 +1,6 @@
-venv
 .idea
 .vscode
+venv
+/src/static/fontawesomefree
+/src/static/modeltranslation
+/src/static/lang-icons
