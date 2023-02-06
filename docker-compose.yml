@@ -2,29 +2,37 @@ services:
   web:
     build:
       context: ./src
-    command: python manage.py runserver 0.0.0.0:8002
+    command: gunicorn portfolio.wsgi:application --bind 0.0.0.0:8002
     volumes:
-      - ./src/:/usr/src/app/
+      - ./src/:/app/
+      - static_files:/app/static/
+    expose:
+      - 8002
     ports:
       - 8002:8002
     env_file:
       - ./src/.env
-#  nginx:
-#    build:
-#      context: ./nginx/
-#    ports:
-#      - 80:80
-#    volumes:
-#      - ./nginx/html/:/usr/share/nginx/html/
-#      - ./nginx/conf.d/:/etc/nginx/conf.d/
-#  dns:
-#    build:
-#      context: ./dns/
-#    restart: always
-#    ports:
-#      - 53:53
-#      - 53:53/udp
-#    volumes:
-#      - ./dns/named.conf:/etc/bind/named.conf
-#      - ./dns/zone/:/etc/bind/zone/
-#    command: named -c /etc/bind/named.conf -g -u named
+  nginx:
+    build:
+      context: ./nginx/
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - static_files:/home/app/staticfiles
+  dns:
+    build:
+      context: ./dns/
+    restart: always
+    ports:
+      - 53:53
+      - 53:53/udp
+    expose:
+      - 8002
+    volumes:
+      - ./dns/named.conf:/etc/bind/named.conf
+      - ./dns/zone/:/etc/bind/zone/
+    command: named -c /etc/bind/named.conf -g -u named
+
+volumes:
+  static_files:
