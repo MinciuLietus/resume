@@ -15,8 +15,10 @@ services:
       context: ./nginx/
     ports:
       - 80:80
+      - 443:443
     volumes:
       - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./nginx/certs/:/etc/nginx/certs/
       - static_files:/home/app/staticfiles
   dns:
     build:
