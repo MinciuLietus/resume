@@ -9,4 +9,6 @@ ENV PYTHONBUFFERED 1
 # install requirements
 RUN pip install pip --upgrade pip
 COPY ./requirements.txt ./app
-RUN pip install -r requirements.txt
+
+RUN pip install -r requirements.txt && \
+    python manage.py collectstatic --noinput
