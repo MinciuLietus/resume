@@ -14,6 +14,4 @@ RUN chmod +x /run.sh
 VOLUME /vol/static
 VOLUME /vol/www
 
-COPY /app/static /vol/static
-
 CMD ["/run.sh"]

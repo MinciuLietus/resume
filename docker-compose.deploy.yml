@@ -8,6 +8,8 @@ services:
     environment:
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - DJANGO_ALLOWED_HOSTS=${DOMAIN}
+    volumes:
+      - static_files:/app/static
 
   proxy:
     build:
@@ -22,6 +24,7 @@ services:
       - certbot-web:/vol/www
       - proxy-dhparams:/vol/proxy
       - certbot-certs:/etc/letsencrypt
+      - static_files:/vol/static
     environment:
       - DOMAIN=${DOMAIN}
 
@@ -42,3 +45,4 @@ volumes:
   certbot-web:
   proxy-dhparams:
   certbot-certs:
+  static_files:
