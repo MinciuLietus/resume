@@ -1,38 +1,13 @@
+version: '3.9'
+
 services:
-  web:
+  app:
     build:
-      context: ./src
+      context: .
     command: gunicorn portfolio.wsgi:application --bind 0.0.0.0:8002
     volumes:
-      - ./src/:/app/
-      - static_files:/app/static/
-    expose:
-      - 8002
-    env_file:
-      - ./src/.env
-  nginx:
-    build:
-      context: ./nginx/
+      - ./src:/app
     ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
-      - ./nginx/certs/:/etc/nginx/certs/
-      - static_files:/home/app/staticfiles
-  dns:
-    build:
-      context: ./dns/
-    restart: always
-    ports:
-      - 53:53
-      - 53:53/udp
-    expose:
-      - 8002
-    volumes:
-      - ./dns/named.conf:/etc/bind/named.conf
-      - ./dns/zone/:/etc/bind/zone/
-    command: named -c /etc/bind/named.conf -g -u named
-
-volumes:
-  static_files:
+      - 8002:8002
+    environment:
+      - DJANGO_DEBUG=1

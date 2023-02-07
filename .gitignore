@@ -1,5 +1,6 @@
 .idea
 .vscode
+/portfolio/__pycache__
 venv
 /src/static/fontawesomefree
 /src/static/modeltranslation
