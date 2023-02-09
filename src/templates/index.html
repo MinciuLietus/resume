@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load countries %}
 <!DOCTYPE html>
 {% block content %}
     <html lang="en">
@@ -10,6 +11,7 @@
         <meta name="author" content=""/>
         <title>{% trans "Resume" %}</title>
         <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}"/>
+        <link rel="stylesheet" href="{% static 'flags/sprite-hq.css' %}">
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet"
               type="text/css"/>
@@ -57,6 +59,7 @@
             <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2"
                                                  src="{% static profile.profile_image.url %} " alt="..."/></span>
         </a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
                 class="navbar-toggler-icon"></span></button>
@@ -76,167 +79,172 @@
             </ul>
         </div>
 
-        <a href="{% static profile.cv_file.url %}" target="_blank">
-            <button type="button" class="btn btn-dark btn-lg" style="background: transparent; border: 0; padding-bottom: 10px"><i
-                    class="fa-solid fa-download"></i> {% trans "Download CV" %}</button>
+        <a style="text-decoration:none; color: #fff;" href="{% static profile.cv_file.url %}"
+           target="_blank"><i
+                class="fa-solid fa-download"></i> {% trans "Download CV" %}
         </a>
-
-
     </nav>
-    <!-- Page Content-->
-    <div class="container-fluid p-0">
 
-        <div style="float:right; padding-right: 15px; padding-top: 10px;">
-            <a class="flag-icon flag-icon-gbr" href="{{ base_url }}/en"></a> |
-            <a class="flag-icon flag-icon-ltu" href="{{ base_url }}/lt"></a>
+    <!-- About-->
+    <section
+            style="padding-left: 1.5rem; padding-right: 1.5rem; align-items: center; display: flex; max-width: 75rem;">
+        <!---Translation flags--->
+        {% get_country 'LT' as lt_flag %}
+        {% get_country 'GBR' as en_flag %}
+
+        <div class="resume-section-content" style="padding-top: 2rem; padding-left: inherit">
+            <a class="flag2x {{ en_flag.flag_css }}" href="{{ base_url }}/en"></a> |
+            <a class="flag2x {{ lt_flag.flag_css }}" href="{{ base_url }}/lt"></a>
         </div>
-        <!-- About-->
-        <section class="resume-section" id="aboutme">
-            <div class="resume-section-content">
-                <h1 class="mb-0">
-                    {{ profile.name }}
-                    <span class="text-primary">{{ profile.surname }}</span>
-                </h1>
-                <div class="subheading mb-5">
-                    {{ profile.location }}. {% trans "Mobile number" %} {{ profile.mobile_number }}
-                    <a href="mailto:{{ profile.email }}">{{ profile.email }}</a>
-                </div>
-                <p class="lead mb-0">{{ profile.short_intro }}</p>
-                <p class="lead mb-0"><br>{{ profile.intro }}</br></p>
-                <ul class="list-inline dev-icons">
-                    <li class="list-inline-item"><i class="far fa-smile-beam"></i></li>
-                </ul>
-                <p class="lead mb-5">{{ profile.intro_tab }}</p>
-                <p>{% trans "Social websites" %}</p>
-                {#                # TODO here implement more social websites#}
-                <div class="social-icons">
-                    <a class="social-icon" href="{{ profile.social_website }}"><i class="fab fa-facebook-f"></i></a>
-                </div>
+
+    </section>
+    <section class="resume-section" id="aboutme">
+        <div class="resume-section-content">
+            <h1 class="mb-0">
+                {{ profile.name }}
+                <span class="text-primary">{{ profile.surname }}</span>
+            </h1>
+            <div class="subheading mb-5">
+                {{ profile.location }}. {% trans "Mobile number" %} {{ profile.mobile_number }}
+                <a href="mailto:{{ profile.email }}">{{ profile.email }}</a>
             </div>
-        </section>
-        <hr class="m-0"/>
-        <!-- Experience-->
-        <section class="resume-section" id="experience">
-            <div class="resume-section-content">
-                <h2 class="mb-5">{% trans "Experience" %}</h2>
-                {% for exp in experience %}
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">{{ exp.name }}</h3>
-                            <div class="subheading mb-3">{{ exp.company }}</div>
-                            <p>{{ exp.about }}</p>
-                        </div>
-                        <div class="flex-shrink-0"><span
-                                class="text-primary">{% trans "from" %} {{ exp.created_from }} {% trans "to" %} {{ exp.created_to }}</span>
-                        </div>
+            <p class="lead mb-0">{{ profile.short_intro }}</p>
+            <p class="lead mb-0"><br>{{ profile.intro }}</br></p>
+            <ul class="list-inline dev-icons">
+                <li class="list-inline-item"><i class="far fa-smile-beam"></i></li>
+            </ul>
+            <p class="lead mb-5">{{ profile.intro_tab }}</p>
+            <p>{% trans "Social websites" %}</p>
+            {#                # TODO here implement more social websites#}
+            <div class="social-icons">
+                <a class="social-icon" href="{{ profile.social_website }}"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Experience-->
+    <section class="resume-section" id="experience">
+        <div class="resume-section-content">
+            <h2 class="mb-5">{% trans "Experience" %}</h2>
+            {% for exp in experience %}
+                <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                    <div class="flex-grow-1">
+                        <h3 class="mb-0">{{ exp.name }}</h3>
+                        <div class="subheading mb-3">{{ exp.company }}</div>
+                        <p>{{ exp.about }}</p>
                     </div>
-                {% endfor %}
-            </div>
-        </section>
-        <hr class="m-0"/>
-        <!-- Education-->
-
-        <section class="resume-section" id="education">
-            <div class="resume-section-content">
-                <h2 class="mb-5">{% trans "Education" %}</h2>
-                {% for educations in education %}
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">{{ educations.name }}</h3>
-                            <div class="subheading mb-3">{{ educations.description }}</div>
-                            <div>{{ educations.about }}</div>
-                        </div>
-                        <div class="flex-shrink-0"><span
-                                class="text-primary">{% trans "from" %} {{ educations.created_from }} {% trans "to" %} {{ educations.created_to }}</span>
-                        </div>
+                    <div class="flex-shrink-0"><span
+                            class="text-primary">{% trans "from" %} {{ exp.created_from }} {% trans "to" %} {{ exp.created_to }}</span>
                     </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Education-->
+
+    <section class="resume-section" id="education">
+        <div class="resume-section-content">
+            <h2 class="mb-5">{% trans "Education" %}</h2>
+            {% for educations in education %}
+                <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                    <div class="flex-grow-1">
+                        <h3 class="mb-0">{{ educations.name }}</h3>
+                        <div class="subheading mb-3">{{ educations.description }}</div>
+                        <div>{{ educations.about }}</div>
+                    </div>
+                    <div class="flex-shrink-0"><span
+                            class="text-primary">{% trans "from" %} {{ educations.created_from }} {% trans "to" %} {{ educations.created_to }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Skills-->
+    <section class="resume-section" id="skills">
+        <div class="resume-section-content">
+            <h2 class="mb-5">{% trans "Skills" %}</h2>
+
+            <div class="subheading mb-3">{% trans "Programming languages:" %}</div>
+            <ul class="fa-ul mb-5">
+                {% for skill in skills.programming_languages %}
+                    <li>
+                        <span class="fa-li"> <i class="fas fa-check"></i></span>
+                        {{ skill }}
+                    </li>
                 {% endfor %}
-            </div>
-        </section>
-        <hr class="m-0"/>
-        <!-- Skills-->
-        <section class="resume-section" id="skills">
-            <div class="resume-section-content">
-                <h2 class="mb-5">{% trans "Skills" %}</h2>
+            </ul>
 
-                <div class="subheading mb-3">{% trans "Programming languages:" %}</div>
-                <ul class="fa-ul mb-5">
-                    {% for skill in skills.programming_languages %}
-                        <li>
-                            <span class="fa-li"> <i class="fas fa-check"></i></span>
-                            {{ skill }}
-                        </li>
-                    {% endfor %}
-                </ul>
+            <div class="subheading mb-3">{% trans "Frameworks:" %}</div>
+            <ul class="fa-ul mb-5">
+                {% for skill in skills.frameworks %}
+                    <li>
+                        <span class="fa-li"> <i class="fas fa-check"></i></span>
+                        {{ skill }}
+                    </li>
+                {% endfor %}
+            </ul>
 
-                <div class="subheading mb-3">{% trans "Frameworks:" %}</div>
-                <ul class="fa-ul mb-5">
-                    {% for skill in skills.frameworks %}
-                        <li>
-                            <span class="fa-li"> <i class="fas fa-check"></i></span>
-                            {{ skill }}
-                        </li>
-                    {% endfor %}
-                </ul>
-
-                <div class="subheading mb-3">{% trans "Developer tools:" %}</div>
-                <ul class="fa-ul mb-5">
-                    {% for skill in skills.developer_tools %}
-                        <li>
-                            <span class="fa-li"> <i class="fas fa-check"></i></span>
-                            {{ skill }}
-                        </li>
-                    {% endfor %}
-                </ul>
+            <div class="subheading mb-3">{% trans "Developer tools:" %}</div>
+            <ul class="fa-ul mb-5">
+                {% for skill in skills.developer_tools %}
+                    <li>
+                        <span class="fa-li"> <i class="fas fa-check"></i></span>
+                        {{ skill }}
+                    </li>
+                {% endfor %}
+            </ul>
 
 
-                <div class="subheading mb-3">{% trans "Libraries:" %}</div>
-                <ul class="fa-ul mb-5">
-                    {% for skill in skills.libraries %}
-                        <li>
-                            <span class="fa-li"> <i class="fas fa-check"></i></span>
-                            {{ skill }}
-                        </li>
-                    {% endfor %}
-                </ul>
+            <div class="subheading mb-3">{% trans "Libraries:" %}</div>
+            <ul class="fa-ul mb-5">
+                {% for skill in skills.libraries %}
+                    <li>
+                        <span class="fa-li"> <i class="fas fa-check"></i></span>
+                        {{ skill }}
+                    </li>
+                {% endfor %}
+            </ul>
 
 
-                <div class="subheading mb-3">{% trans "Other:" %}</div>
-                <ul class="fa-ul mb-5">
-                    {% for skill in skills.other %}
-                        <li>
-                            <span class="fa-li"> <i class="fas fa-check"></i></span>
-                            {{ skill }}
-                        </li>
-                    {% endfor %}
-                </ul>
+            <div class="subheading mb-3">{% trans "Other:" %}</div>
+            <ul class="fa-ul mb-5">
+                {% for skill in skills.other %}
+                    <li>
+                        <span class="fa-li"> <i class="fas fa-check"></i></span>
+                        {{ skill }}
+                    </li>
+                {% endfor %}
+            </ul>
 
-                <div class="subheading mb-3">{% trans "Languages" %}</div>
-                <ul class="fa-ul mb-0">
-                    {% for language in languages %}
-                        <li>
-                            <span class="fa-li"><i class="fas fa-check"></i></span>
-                            {{ language.name }}
-                        </li>
-                    {% endfor %}
-                </ul>
+            <div class="subheading mb-3">{% trans "Languages" %}</div>
+            <ul class="fa-ul mb-0">
+                {% for language in languages %}
+                    <li>
+                        <span class="fa-li"><i class="fas fa-check"></i></span>
+                        {{ language.name }}
+                    </li>
+                {% endfor %}
+            </ul>
 
-            </div>
-        </section>
-        <hr class="m-0"/>
-        <!-- Interests-->
-        <section class="resume-section" id="hobbies">
-            <div class="resume-section-content">
-                <h2 class="mb-5">{% trans "Hobbies" %}</h2>
-                <p>{{ profile.bio }}</p>
-                <p class="mb-0">{{ profile.bio_tab }}</p>
-            </div>
-        </section>
-        <hr class="m-0"/>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="{% static 'js/scripts.js' %}"></script>
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Interests-->
+    <section class="resume-section" id="hobbies">
+        <div class="resume-section-content">
+            <h2 class="mb-5">{% trans "Hobbies" %}</h2>
+            <p>{{ profile.bio }}</p>
+            <p class="mb-0">{{ profile.bio_tab }}</p>
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="{% static 'js/scripts.js' %}"></script>
     </body>
     </html>
 {% endblock content %}

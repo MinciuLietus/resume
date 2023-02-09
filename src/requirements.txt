@@ -15,4 +15,5 @@ python-gettext==4.1
 fontawesomefree==6.2.1
 django-modeltranslation==0.18.8
 python-dotenv==0.21.1
+django-countries==7.5.1
 uWSGI

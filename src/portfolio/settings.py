@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'user',
     'modeltranslation',
     'fontawesomefree',
+    'django_countries',
 ]
 
 MIDDLEWARE = [
