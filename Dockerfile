@@ -10,11 +10,7 @@ RUN apk add --upgrade --no-cache build-base linux-headers && \
 COPY /src /app
 WORKDIR /app
 
-# Add permissions to source folder.
-RUN chmod 775 /app
-RUN adduser --disabled-password --no-create-home django
-
-USER django
-
+RUN pip install -r requirements.txt && \
+    python manage.py collectstatic --noinput
 
 CMD ["uwsgi", "--socket", ":9000", "--workers", "4", "--master", "--enable-threads", "--module", "portfolio.wsgi"]
