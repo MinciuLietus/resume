@@ -10,7 +10,6 @@ RUN apk add --upgrade --no-cache build-base linux-headers && \
 COPY /src /app
 WORKDIR /app
 
-RUN pip install -r requirements.txt && \
-    python manage.py collectstatic --noinput
+RUN python manage.py collectstatic --noinput
 
 CMD ["uwsgi", "--socket", ":9000", "--workers", "4", "--master", "--enable-threads", "--module", "portfolio.wsgi"]
