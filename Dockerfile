@@ -14,4 +14,9 @@ RUN adduser --disabled-password --no-create-home django
 
 USER django
 
+# Add permissions to sqlite file.
+RUN mkdir "output"
+RUN touch output/reports.db output/database.log
+RUN chmod a+rw output output/*
+
 CMD ["uwsgi", "--socket", ":9000", "--workers", "4", "--master", "--enable-threads", "--module", "portfolio.wsgi"]
