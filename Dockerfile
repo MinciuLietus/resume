@@ -5,6 +5,7 @@ ENV PYTHONUNBUFFERED 1
 COPY /src/requirements.txt /requirements.txt
 RUN apk add --upgrade --no-cache build-base linux-headers && \
     pip install --upgrade pip && \
+    pip install -r /requirements.txt
 
 COPY /src /app
 WORKDIR /app
