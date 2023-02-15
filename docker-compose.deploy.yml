@@ -23,7 +23,7 @@ services:
     volumes:
       - certbot-web:/vol/www
       - proxy-dhparams:/vol/proxy
-      - certbot-certs:/etc/resume
+      - certbot-certs:/etc/letsencrypt
       - static_files:/vol/static
     environment:
       - DOMAIN=${DOMAIN}
@@ -37,7 +37,7 @@ services:
       - DOMAIN=${DOMAIN}
     volumes:
       - certbot-web:/vol/www
-      - certbot-certs:/etc/resume/
+      - certbot-certs:/etc/letsencrypt/
     depends_on:
       - proxy
 
