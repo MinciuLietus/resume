@@ -110,16 +110,27 @@
             </div>
             <p class="lead mb-0">{{ profile.short_intro }}</p>
             <p class="lead mb-0"><br>{{ profile.intro }}</br></p>
-            <ul class="list-inline dev-icons">
-                <li class="list-inline-item"><i class="far fa-smile-beam"></i></li>
-            </ul>
+
             <p class="lead mb-5">{{ profile.intro_tab }}</p>
             <p>{% trans "Social websites" %}</p>
-            {#                # TODO here implement more social websites#}
+
             <div class="social-icons">
-                <a class="social-icon" href="{{ profile.social_website }}"><i class="fab fa-facebook-f"></i></a>
+                {% if profile.social_github %}
+                    <a class="social-icon" href="{{ profile.social_github }}"><i class="fab fa-github"></i></a>
+                {% endif %}
+                {% if profile.social_twitter %}
+                    <a class="social-icon" href="{{ profile.social_twitter }}"><i class="fab fa-twitter"></i></a>
+                {% endif %}
+                {% if profile.social_linkedin %}
+                    <a class="social-icon" href="{{ profile.social_linkedin }}"><i class="fab fa-linkedin"></i></a>
+                {% endif %}
+                {% if profile.social_youtube %}
+                    <a class="social-icon" href="{{ profile.social_youtube }}"><i class="fab fa-youtube"></i></a>
+                {% endif %}
+                {% if profile.social_website %}
+                    <a class="social-icon" href="{{ profile.social_website }}"><i class="fab fa-facebook"></i></a>
+                {% endif %}
             </div>
-        </div>
         </div>
     </section>
     <hr class="m-0"/>
