@@ -1,5 +1,6 @@
 .idea
 .vscode
+.env
 /portfolio/__pycache__
 venv
 /src/static/fontawesomefree
