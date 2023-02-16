@@ -1,8 +1,8 @@
 .idea
 .vscode
 .env
-/portfolio/__pycache__
 venv
+/portfolio/__pycache__
 /src/static/fontawesomefree
 /src/static/modeltranslation
 /src/static/lang-icons
