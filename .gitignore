@@ -7,3 +7,4 @@ venv
 /src/static/modeltranslation
 /src/static/lang-icons
 /src/static/flags
+/src/db.sqlite3
