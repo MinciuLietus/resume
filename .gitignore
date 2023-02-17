@@ -3,8 +3,9 @@
 .env
 venv
 /portfolio/__pycache__
+/src/db.sqlite3
+/src/static/media/profiles
+/src/static/flags
+/src/static/lang-icons
 /src/static/fontawesomefree
 /src/static/modeltranslation
-/src/static/lang-icons
-/src/static/flags
-/src/db.sqlite3
