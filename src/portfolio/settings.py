@@ -128,7 +128,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOCALE_PATHS = (os.path.join(BASE_DIR), 'locale',)
+LOCALE_PATHS = (os.path.join(BASE_DIR), 'user/locale',)
 
 gettext: Callable[[Any], Any] = lambda s: s
 
