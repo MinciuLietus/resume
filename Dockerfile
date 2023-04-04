@@ -5,11 +5,12 @@ ENV PYTHONUNBUFFERED 1
 COPY /src/requirements.txt /requirements.txt
 RUN apk add --upgrade --no-cache build-base linux-headers && \
     pip install --upgrade pip && \
-    pip install -r /requirements.txt
+    pip install -r /requirements.txt && \
+    apk add --update nano
 
 COPY /src /app
 WORKDIR /app
 
 RUN python manage.py collectstatic --noinput
 
-CMD ["uwsgi", "--socket", ":9000", "--workers", "4", "--master", "--enable-threads", "--module", "portfolio.wsgi"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8002", "portfolio.wsgi:application"]
