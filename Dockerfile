@@ -8,6 +8,8 @@ RUN apk add --upgrade --no-cache build-base linux-headers && \
     pip install -r /requirements.txt && \
     apk add --update nano
 
+RUN mkdir -p /app/logs
+
 COPY /src /app
 WORKDIR /app
 

@@ -7,7 +7,11 @@ services:
     command: gunicorn portfolio.wsgi:application --bind 0.0.0.0:8002
     volumes:
       - ./src:/app
+      - logs:/app/logs
     ports:
       - 8002:8002
     environment:
-      - DJANGO_DEBUG=1
+      - DJANGO_DEBUG=0
+
+volumes:
+  logs:
